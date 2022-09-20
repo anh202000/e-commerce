@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-      "BASE_URL": "https://anhlptecommerce-pd72y0l9j-anh202000.vercel.app",
+      "BASE_URL": "https://ecommerceanhlpt.herokuapp.com",
       // connect cloud mogodb
       "MONGODB_URL": "mongodb+srv://anh:anh@cluster0.pzq4wws.mongodb.net/next_ecommerce?retryWrites=true&w=majority",
       // https://www.passwordsgenerators.net/ config access token với Password Length: 50 là char
