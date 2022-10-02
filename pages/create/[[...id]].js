@@ -12,13 +12,15 @@ const ProductsManager = () => {
         inStock: 0,
         description: '',
         content: '',
-        category: ''
+        category: '',
+        like: [],
+        disLike: [],
+        comment: []
     }
     const [product, setProduct] = useState(initialState)
     const {title, price, inStock, description, content, category} = product
 
     const [images, setImages] = useState([])
-
     const {state, dispatch} = useContext(DataContext)
     const {categories, auth} = state
 

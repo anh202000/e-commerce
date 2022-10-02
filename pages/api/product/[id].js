@@ -35,17 +35,17 @@ const getProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const result = await auth(req, res)
-        if(result.role !== 'admin') 
-        return res.status(400).json({err: 'Authentication is not valid.'})
+        // if(result.role !== 'admin') 
+        // return res.status(400).json({err: 'Authentication is not valid.'})
 
         const {id} = req.query
-        const {title, price, inStock, description, content, category, images} = req.body
+        const {title, price, inStock, description, content, category, images, like, disLike, comment} = req.body
 
         if(!title || !price || !inStock || !description || !content || category === 'all' || images.length === 0)
         return res.status(400).json({err: 'Please add all the fields.'})
 
         await Products.findOneAndUpdate({_id: id}, {
-            title: title.toLowerCase(), price, inStock, description, content, category, images
+            title: title.toLowerCase(), price, inStock, description, content, category, images, like, disLike, comment
         })
 
         res.json({msg: 'Success! Updated a product'})

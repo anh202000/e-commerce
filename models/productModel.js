@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const productSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user'
+    },
     title: {
         type: String,
         required: true,
@@ -38,6 +42,18 @@ const productSchema = new mongoose.Schema({
     sold: {
         type: Number,
         default: 0
+    },
+    like: {
+        type: Array,
+        default: []
+    },
+    disLike: {
+        type: Array,
+        default: [],
+    },
+    comment: {
+        type: Array,
+        default: []
     }
 }, {
     timestamps: true

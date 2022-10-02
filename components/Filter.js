@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import filterSearch from '../utils/filterSearch'
 import {getData} from '../utils/fetchData'
 import {useRouter} from 'next/router'
+import SearchIcon from '../public/search'
 
 const Filter = ({state}) => {
     const [search, setSearch] = useState('')
@@ -30,7 +31,7 @@ const Filter = ({state}) => {
     return (
         <div className="input-group">
             <div className="input-group-prepend col-md-2 px-0 mt-2">
-                <select className="custom-select text-capitalize"
+                <select className="select"
                 value={category} onChange={handleCategory}>
 
                     <option value="all">All Products</option>
@@ -43,13 +44,8 @@ const Filter = ({state}) => {
                 </select>
             </div>
 
-            <form autoComplete="off" className="mt-2 col-md-8 px-0">
-                <input type="text" className="form-control" list="title_product"
-                value={search.toLowerCase()} onChange={e => setSearch(e.target.value)} />
-            </form>
-
             <div className="input-group-prepend col-md-2 px-0 mt-2">
-                <select className="custom-select text-capitalize"
+                <select className="select"
                 value={sort} onChange={handleSort}>
 
                      <option value="-createdAt">Newest</option>
@@ -61,6 +57,11 @@ const Filter = ({state}) => {
                 </select>
             </div>
 
+            <form autoComplete="off" className="mt-2 col-md-4 offset-md-4 px-0 input-group">
+                <input type="text" className="form-control mr-4" list="title_product"
+                value={search.toLowerCase()} onChange={e => setSearch(e.target.value)} />
+                <SearchIcon/>
+            </form>
 
         </div>
     )

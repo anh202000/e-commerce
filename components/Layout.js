@@ -1,17 +1,24 @@
-import React from 'react'
-import NavBar from './NavBar'
-import Notify from './Notify'
-import Modal from './Modal'
+import React from "react";
+import NavBar from "./NavBar";
+import Notify from "./Notify";
+import Modal from "./Modal";
 
-function Layout({children}) {
+function Layout({ children }) {
     return (
-        <div className="container">
-            <NavBar />
-            <Notify />
-            <Modal />
-            {children}
+        <div>
+            <div className="container">
+                <NavBar />
+            </div>
+
+            <p class="line-hight"></p>
+            
+            <div className="container">
+                <Notify />
+                <Modal />
+                {children}
+            </div>
         </div>
-    )
+    );
 }
 
-export default Layout
+export default Layout;

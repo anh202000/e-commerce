@@ -20,6 +20,35 @@ img{
   object-position: 0 30%;
 }
 
+.font-text{
+  font-size: 2rem;
+  font-weight: 350;
+  color: black;
+  font-family: italic small-caps bold 12px/30px Georgia, serif,
+}
+
+.font-text-global{
+  font-size: 1rem;
+  font-weight: 350;
+  color: black;
+  font-family: italic small-caps bold 12px/30px Georgia, serif,
+}
+
+.line-hight{
+  border-bottom: 1px solid rgb(219, 219, 219);
+  width: 100%;
+}
+
+.select {
+  background-color: rgb(255, 255, 255);
+  border-color: #fff transparent transparent transparent;
+  width: 12rem;
+}
+
+.li-mr {
+  margin: 0px 16px 0px 16px
+}
+
 /* ----------- Loading ------------- */
 @import url("./loading.css");
 
