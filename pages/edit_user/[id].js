@@ -1,30 +1,33 @@
 import Head from 'next/head'
 import { useContext, useState, useEffect } from 'react'
-import {DataContext} from '../../store/GlobalState'
-import {updateItem} from '../../store/Actions'
+import { DataContext } from '../../store/GlobalState'
+import { updateItem } from '../../store/Actions'
 
-import {useRouter} from 'next/router'
-import {patchData} from '../../utils/fetchData'
+import { useRouter } from 'next/router'
+import { patchData } from '../../utils/fetchData'
+import UserDetail from '../../public/userdetail'
 
 const EditUser = () => {
     const router = useRouter()
-    const { id }= router.query
+    const { id } = router.query
 
-    const {state, dispatch} = useContext(DataContext)
-    const {auth, users} = state
-
+    const { state, dispatch } = useContext(DataContext)
+    const { auth, users } = state
     const [editUser, setEditUser] = useState([])
     const [checkAdmin, setCheckAdmin] = useState(false)
     const [num, setNum] = useState(0)
 
+    const userDetail = users?.filter((item) => item._id === id)[0]
+    console.log(userDetail, 'users')
+
     useEffect(() => {
         users.forEach(user => {
-            if(user._id === id){
+            if (user._id === id) {
                 setEditUser(user)
                 setCheckAdmin(user.role === 'admin' ? true : false)
             }
         })
-    },[users])
+    }, [users])
 
     const handleCheck = () => {
         setCheckAdmin(!checkAdmin)
@@ -33,62 +36,122 @@ const EditUser = () => {
 
     const handleSubmit = () => {
         let role = checkAdmin ? 'admin' : 'user'
-        if(num % 2 !== 0){
-            dispatch({type: 'NOTIFY', payload: {loading: true}})
-            patchData(`user/${editUser._id}`, {role}, auth.token)
-            .then(res => {
-                if(res.err) return dispatch({type: 'NOTIFY', payload: {error: res.err}})
+        if (num % 2 !== 0) {
+            dispatch({ type: 'NOTIFY', payload: { loading: true } })
+            patchData(`user/${editUser._id}`, { role }, auth.token)
+                .then(res => {
+                    if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
 
-                dispatch(updateItem(users, editUser._id, {
-                    ...editUser, role
-                }, 'ADD_USERS'))
+                    dispatch(updateItem(users, editUser._id, {
+                        ...editUser, role
+                    }, 'ADD_USERS'))
 
-                return dispatch({type: 'NOTIFY', payload: {success: res.msg}})
-            })
+                    return dispatch({ type: 'NOTIFY', payload: { success: res.msg } })
+                })
         }
-        
+
     }
 
-    
-    return (
-        <div className="edit_user my-3">
-            <Head>
-                <title>Edit User</title>
-            </Head>
 
+    return (
+        <section class="vh-100">
             <div>
                 <button className="btn btn-dark" onClick={() => router.back()}>
                     <i className="fas fa-long-arrow-alt-left" aria-hidden></i> Go Back
                 </button>
             </div>
-
-            <div className="col-md-4 mx-auto my-4">
-                <h2 className="text-uppercase text-secondary">Edit User</h2>
-
-                <div className="form-group">
-                    <label htmlFor="name" className="d-block">Name</label>
-                    <input type="text" id="name" defaultValue={editUser.name} disabled />
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-start">
+                    <div class="col col-lg-12 mb-4 mb-lg-0">
+                        <div class="card mb-3" style={{ borderRadius: '5rem' }}>
+                            <div class="row g-0">
+                                <div class="col-md-4 gradient-custom text-center"
+                                    style={{ borderTopLeftRadius: '5rem', borderBottomLeftRadius: '5rem' }}>
+                                    <img src={userDetail?.avatar}
+                                        alt="Avatar" class="img-fluid my-5" style={{ width: "80px" }} />
+                                    <h5>{userDetail?.name}</h5>
+                                    <p>{userDetail?.role}</p>
+                                    <i class="far fa-edit mb-5"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4">
+                                        <h6>Information</h6>
+                                        <hr class="mt-0 mb-4" />
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>Email</h6>
+                                                <p class="text-muted">{userDetail?.email}</p>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h6>Phone</h6>
+                                                <p class="text-muted">09***234**</p>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-0 mb-4" />
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>Recent</h6>
+                                                <p class="text-muted">Lorem ipsum</p>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h6>Most Viewed</h6>
+                                                <p class="text-muted">Dolor sit amet</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-start">
+                                            <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                                            <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                                            <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="email" className="d-block">Email</label>
-                    <input type="text" id="email" defaultValue={editUser.email} disabled />
+                <div class="row d-flex justify-content-start">
+                    <div class="col col-lg-12 mb-4 mb-lg-0">
+                        <div class="card mb-3" style={{ borderRadius: '5rem' }}>
+                            <div class="row g-0">
+                                <div class="col-md-4 gradient-custom text-center" style={{ borderTopLeftRadius: '5rem', borderBottomLeftRadius: '5rem' }}>
+                                    <div class="mt-20" style={{ width: "80px", height: '20px' }}>
+                                    </div>
+
+                                    <UserDetail />
+                                    <h6 class="mt-20">Change Profile</h6>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4">
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>Email</h6>
+                                                <input type="text" style={{borderTop:0 , borderLeft:0, borderRight:0, outline:0}} id="email" defaultValue={editUser.email} />
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h6>Name</h6>
+                                                <input type="text" style={{borderTop:0 , borderLeft:0, borderRight:0, outline:0}}  class="text-muted " id="name" defaultValue={editUser.name} />
+                                            </div>
+                                        </div>
+                                        <hr class="mt-0 mb-4" />
+                                        <div class="row pt-1">
+                                            <div class="col-6 mb-3">
+                                                <h6>isAdmin</h6>
+                                                <input type="checkbox" id="isAdmin" checked={checkAdmin} style={{width: '20px', height: '20px'}} onChange={handleCheck} />
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <h6>Submit</h6>
+                                                <button className="btn btn-light border" onClick={handleSubmit}>Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div className="form-group">
-                    <input type="checkbox" id="isAdmin" checked={checkAdmin}
-                    style={{width: '20px', height: '20px'}} onChange={handleCheck} />
-
-                    <label htmlFor="isAdmin" style={{transform: 'translate(4px, -3px)'}}>
-                        isAdmin
-                    </label>
-                </div>
-
-                <button className="btn btn-dark" onClick={handleSubmit}>Update</button>
-
             </div>
-
-        </div>
+        </section>
     )
 }
 

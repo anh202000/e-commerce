@@ -15,6 +15,7 @@ import CameraIcon from '../../public/camera'
 import Picker from '@emoji-mart/react'
 import moment from 'moment'
 import { imageUpload } from '../../utils/imageUpload'
+import ImageGallery from 'react-image-gallery';
 
 export const styles = {
     icon: {
@@ -38,6 +39,7 @@ export const styles = {
 const DetailProduct = (props) => {
     const [product, setProduct] = useState(props.product)
     const [emoji, setEmoji] = useState(false);
+    const [isShow, setIsShow] = useState(false);
     const [stateInput, setStateInput] = useState({ comment: '', url: [], name: '', avatar: '', time: '' });
     const [images, setImages] = useState([])
     const [tab, setTab] = useState(0)
@@ -51,6 +53,7 @@ const DetailProduct = (props) => {
     const getMoment = moment().format('YYYY/MM/DD HH:mm:ss');
     const inputFile = useRef(null)
 
+    const onToggleGallery = () => {setIsShow(!isShow)}
     const callApi = async () => {
         const res = await getData(`product/${id}`)
         setProduct(res.product)
@@ -152,15 +155,19 @@ const DetailProduct = (props) => {
         newArr.splice(index, 1)
         setImages(newArr)
     }
-
-    console.log(product, '123')
-
-    console.log(images, 'images')
+    console.log(product.images, 'product.images')
     return (
         <div className="row detail_page">
             <Head>
                 <title>Detail Product</title>
             </Head>
+
+{/* 
+            <ImageGallery items={product.images?.map((item) => {return{
+    ...item,
+    original: item?.url,
+    thumbnail: item?.url,
+}})} /> */}
 
             <div className="col-md-6">
                 <img src={product.images[tab].url} alt={product.images[tab].url}
@@ -202,6 +209,11 @@ const DetailProduct = (props) => {
                 <button type="button" className="btn btn-dark d-block my-3 px-5"
                     onClick={() => dispatch(addToCart(product, cart))} >
                     Buy
+                </button>
+
+                <button type="button" className="btn btn-dark d-block my-3 px-5"
+                    onClick={onToggleGallery} >
+                    View
                 </button>
             </div>
 
@@ -375,7 +387,7 @@ const DetailProduct = (props) => {
                                         }).reverse()
                                         :
                                         <p class="mb-0">
-                                            There are no question about this product, if you have a question or feedback, please ask us. Hope you have good experience in my store. Ecommerce Shop contact email: anhroyal110@gmail.com or phonenumber: 0962731***.
+                                            There are no question about this product, if you have a question or feedback, please ask us. Hope you have good experience in my store. Youngz Shop contact email: anhroyal110@gmail.com or phonenumber: 0962731***.
                                         </p>
                                 }
                             </div>

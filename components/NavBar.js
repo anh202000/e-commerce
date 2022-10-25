@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { DataContext } from '../store/GlobalState'
@@ -11,6 +11,26 @@ function NavBar() {
     const router = useRouter()
     const { state, dispatch } = useContext(DataContext)
     const { auth, cart } = state
+
+    const [windowDimenion, detectHW] = useState({
+        winWidth: typeof window !== "undefined" ? window.innerWidth : 1000,
+        winHeight: typeof window !== "undefined" ? window.innerHeight : 1000,
+    })
+
+    const detectSize = () => {
+        detectHW({
+            winWidth: window.innerWidth,
+            winHeight: window.innerHeight,
+        })
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', detectSize)
+
+        return () => {
+            window.removeEventListener('resize', detectSize)
+        }
+    }, [windowDimenion])
 
 
     const isActive = (r) => {
@@ -76,7 +96,7 @@ function NavBar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link href="/">
-                <i className="navbar-brand font-text">Ecommerce Shop</i>
+                <i className="navbar-brand font-text">Youngz Shop</i>
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -103,19 +123,22 @@ function NavBar() {
                         <Link href="/cart">
                             <a className={"nav-link position-relative" + isActive('/cart')}>
                                 <Cart />
-                                <span className="position-absolute"
-                                    style={{
-                                        padding: '3px 6px',
-                                        background: '#d71036',
-                                        borderRadius: '50%',
-                                        top: '-10px',
-                                        right: '-10px',
-                                        color: 'white',
-                                        fontSize: '8px',
-                                        zIndex: '999'
-                                    }}>
-                                    {cart.length}
-                                </span>
+                                {windowDimenion.winWidth > 992 ?
+                                    <span className="position-absolute"
+                                        style={{
+                                            padding: '3px 6px',
+                                            background: '#d71036',
+                                            borderRadius: '50%',
+                                            top: '-10px',
+                                            right: '-10px',
+                                            color: 'white',
+                                            fontSize: '8px',
+                                            zIndex: '999'
+                                        }}>
+                                        {cart.length}
+                                    </span>
+                                    : <></>
+                                }
                             </a>
                         </Link>
                     </li>
