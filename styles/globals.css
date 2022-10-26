@@ -46,7 +46,7 @@ img{
 }
 
 .li-mr {
-  margin: 0px 16px 0px 16px
+  margin: 0px 20px 0px 16px
 }
 
 hr.fancy-line { 
@@ -96,3 +96,50 @@ body, hr.fancy-line:after {
 @import url("./products_manager.css");
 
 @import "~react-image-gallery/styles/css/image-gallery.css";
+
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+
+body {
+  font-family: 'Inconsolata', san-srif ;
+}
+
+@-webkit-keyframes salePulse {
+from { background-color: #a00; }
+50% { background-color: #c00; -webkit-transform:scale(1.1); }
+to { background-color: #a00; }
+}
+
+mark.sale {
+background:#c00; /* fallback for non-webkit browsers */
+display:block; /* or it wont work */
+width:80px;
+text-align:center;
+line-height:3em;
+border-radius:3em;
+color:#fff;
+font-weight:bold;
+-webkit-animation-name:salePulse;
+-webkit-animation-duration:1s;
+-webkit-animation-iteration-count:infinite;
+margin: 0 auto;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  margin-bottom: 40px;
+text-decoration: solid;
+}
+
+.line:before,
+.line:after {
+  content: "";
+  border-bottom: 2px solid #000;
+  margin: auto;
+  position: relative;
+  display: inline-block;
+  height: 1px;
+  flex: 1 1;
+}
+

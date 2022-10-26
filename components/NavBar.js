@@ -6,6 +6,7 @@ import Cookie from 'js-cookie'
 import HouseDoor from '../public/house-door.js'
 import Cart from '../public/cart'
 import Location from '../public/location'
+import Store from '../public/store'
 
 function NavBar() {
     const router = useRouter()
@@ -103,7 +104,7 @@ function NavBar() {
             </button>
             <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                    <li className="nav-item">
+                    <li className="nav-item li-mr">
                         <Link href="/">
                             <a className={"nav-link " + isActive('/')}>
                                 <HouseDoor />
@@ -119,7 +120,31 @@ function NavBar() {
                         </Link>
                     </li>
 
-                    <li className="nav-item">
+                    <li className="nav-item li-mr">
+                        <Link href="/hotnew">
+                            <a className={"nav-link position-relative" + isActive('/hotnew')}>
+                                <Store />
+                                {windowDimenion.winWidth > 992 ?
+                                    <span className="position-absolute"
+                                        style={{
+                                            padding: '3px 6px',
+                                            background: '#d71036',
+                                            borderRadius: '50%',
+                                            top: '-10px',
+                                            right: '-10px',
+                                            color: 'white',
+                                            fontSize: '8px',
+                                            zIndex: '999'
+                                        }}>
+                                        New
+                                    </span>
+                                    : <></>
+                                }
+                            </a>
+                        </Link>
+                    </li>
+
+                    <li className="nav-item li-mr">
                         <Link href="/cart">
                             <a className={"nav-link position-relative" + isActive('/cart')}>
                                 <Cart />

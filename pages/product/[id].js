@@ -53,7 +53,7 @@ const DetailProduct = (props) => {
     const getMoment = moment().format('YYYY/MM/DD HH:mm:ss');
     const inputFile = useRef(null)
 
-    const onToggleGallery = () => {setIsShow(!isShow)}
+    const onToggleGallery = () => { setIsShow(!isShow) }
     const callApi = async () => {
         const res = await getData(`product/${id}`)
         setProduct(res.product)
@@ -162,15 +162,8 @@ const DetailProduct = (props) => {
                 <title>Detail Product</title>
             </Head>
 
-{/* 
-            <ImageGallery items={product.images?.map((item) => {return{
-    ...item,
-    original: item?.url,
-    thumbnail: item?.url,
-}})} /> */}
-
             <div className="col-md-6">
-                <img src={product.images[tab].url} alt={product.images[tab].url}
+                {/* <img src={product.images[tab].url} alt={product.images[tab].url}
                     className="d-block img-thumbnail rounded mt-4 w-100"
                     style={{ height: '350px' }} />
 
@@ -183,7 +176,15 @@ const DetailProduct = (props) => {
                             onClick={() => setTab(index)} />
                     ))}
 
-                </div>
+                </div> */}
+
+                <ImageGallery items={product.images?.map((item) => {
+                    return {
+                        ...item,
+                        original: item?.url,
+                        thumbnail: item?.url,
+                    }
+                })} />
             </div>
 
             <div className="col-md-6 mt-3">
