@@ -7,6 +7,7 @@ import ProductItem from '../components/product/ProductItem'
 import filterSearch from '../utils/filterSearch'
 import {useRouter} from 'next/router'
 import Filter from '../components/Filter'
+import MessengerCustomerChat from '../components/messenger/MessengerCustomerChat'
 
 const Home = (props) => {
   const [products, setProducts] = useState(props.products)
@@ -67,6 +68,8 @@ const Home = (props) => {
       </Head>
 
       <Filter state={state} />
+
+      <MessengerCustomerChat pageId="100087553510087" appId="5701547326574526"/>
 
       {
         auth.user && auth.user.role === 'admin' &&

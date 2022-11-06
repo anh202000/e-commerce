@@ -30,7 +30,7 @@ const LocationInfor = (props) => {
 
     const sendEmail = (e) => {
         e.preventDefault();
-
+        
         emailjs.sendForm('service_xk7oeuw', 'template_ku8ruto', form.current, 'Wh01UpU20lpfVqZ0k')
             .then((result) => {
                 console.log(result.text);
