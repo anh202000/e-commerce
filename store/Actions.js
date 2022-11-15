@@ -6,6 +6,7 @@ export const ACTIONS = {
     ADD_ORDERS: 'ADD_ORDERS',
     ADD_USERS: 'ADD_USERS',
     ADD_CATEGORIES: 'ADD_CATEGORIES',
+    ADD_MAIL: 'ADD_MAIL',
 }
 
 export const addToCart = (product, cart) => {
@@ -48,4 +49,8 @@ export const deleteItem = (data, id, type) => {
 export const updateItem = (data, id, post, type) => {
     const newData = data.map(item => (item._id === id ? post : item))
     return ({ type, payload: newData})
+}
+
+export const sendMail = () => {
+    return ({ type: 'NOTIFY', payload: {success: 'Your Email has been sended.'} }) 
 }

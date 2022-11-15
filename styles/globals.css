@@ -80,6 +80,59 @@ hr.fancy-line, hr.fancy-line:before {
   background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 75%);
 }
 
+div.online-indicator {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #0fadcc;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  right: -10px;
+}
+
+span.blink {
+  display: block;
+  width: 30px;
+  height: 30px;
+
+  background-color: #0fadcc;
+  opacity: 0.7;
+  border-radius: 50%;
+
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  100% { transform: scale(2, 2); 
+          opacity: 0;
+        }
+}
+
+.avatar__letters {
+  /* Center the content */
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.avatars {
+  margin: 0 20px;
+  /* Center the content */
+  display: inline-block;
+  vertical-align: middle;
+  /* Used to position the content */
+  position: relative;
+  /* Colors */
+  /* background: lightblue; */
+  color: #fff;
+  /* Rounded border */
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+}
+
 body, hr.fancy-line:after {
   background: #f4f4f4;
 }

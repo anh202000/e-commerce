@@ -7,6 +7,7 @@ import HouseDoor from '../public/house-door.js'
 import Cart from '../public/cart'
 import Location from '../public/location'
 import Store from '../public/store'
+import Mail from '../public/mail'
 
 function NavBar() {
     const router = useRouter()
@@ -81,6 +82,9 @@ function NavBar() {
                     <Link href="/profile">
                         <a className="dropdown-item">Profile</a>
                     </Link>
+                    <Link href="/infor">
+                        <a className="dropdown-item">Personal page</a>
+                    </Link>
                     <Link href="/location">
                         <a className="dropdown-item">location</a>
                     </Link>
@@ -144,29 +148,41 @@ function NavBar() {
                         </Link>
                     </li>
 
-                    <li className="nav-item li-mr">
-                        <Link href="/cart">
-                            <a className={"nav-link position-relative" + isActive('/cart')}>
-                                <Cart />
-                                {windowDimenion.winWidth > 992 ?
-                                    <span className="position-absolute"
-                                        style={{
-                                            padding: '3px 6px',
-                                            background: '#d71036',
-                                            borderRadius: '50%',
-                                            top: '-10px',
-                                            right: '-10px',
-                                            color: 'white',
-                                            fontSize: '8px',
-                                            zIndex: '999'
-                                        }}>
-                                        {cart.length}
-                                    </span>
-                                    : <></>
-                                }
-                            </a>
-                        </Link>
-                    </li>
+                    {auth?.user?.role === 'admin' &&
+                        <li className="nav-item li-mr">
+                            <Link href="/mail">
+                                <a className={"nav-link position-relative" + isActive('/mail')}>
+                                    <Mail />
+                                </a>
+                            </Link>
+                        </li>
+                    }
+
+                    {auth?.user?.role !== 'admin' &&
+                        <li className="nav-item li-mr">
+                            <Link href="/cart">
+                                <a className={"nav-link position-relative" + isActive('/cart')}>
+                                    <Cart />
+                                    {windowDimenion.winWidth > 992 ?
+                                        <span className="position-absolute"
+                                            style={{
+                                                padding: '3px 6px',
+                                                background: '#d71036',
+                                                borderRadius: '50%',
+                                                top: '-10px',
+                                                right: '-10px',
+                                                color: 'white',
+                                                fontSize: '8px',
+                                                zIndex: '999'
+                                            }}>
+                                            {cart.length}
+                                        </span>
+                                        : <></>
+                                    }
+                                </a>
+                            </Link>
+                        </li>
+                    }
                 </ul>
             </div>
 

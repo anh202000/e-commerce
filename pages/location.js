@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useRef } from "react";
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
-import { getData } from "../utils/fetchData";
+import { getData, postData } from "../utils/fetchData";
 import emailjs from '@emailjs/browser';
 import GoogleApiWrapper from '../components/googlemap/googlemap'
+import { DataContext } from "../store/GlobalState";
+import { sendMail } from "../store/Actions";
 
 const LocationInfor = (props) => {
     const form = useRef();
@@ -17,7 +19,10 @@ const LocationInfor = (props) => {
             return delete props?.products[idx]
         }
     }))
+    const { state, dispatch } = useContext(DataContext);
 
+    const { mails, auth } = state
+    
     useEffect(() => {
         setProducts(props?.products?.map((item) => {
             if (item?.comment?.length > 0) {
@@ -28,18 +33,27 @@ const LocationInfor = (props) => {
         }))
     }, [props.products])
 
-    const sendEmail = (e) => {
+    const sendEmail = async (e) => {
         e.preventDefault();
-        
+        let res
+        res = await postData('mail', {
+            user_name: document.getElementById("user_name").value,
+            email: document.getElementById("user_email").value,
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value
+        }, auth.token)
+        if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
+        dispatch({ type: "ADD_MAIL", payload: [...mails, res.newMail] })
+
         emailjs.sendForm('service_xk7oeuw', 'template_ku8ruto', form.current, 'Wh01UpU20lpfVqZ0k')
             .then((result) => {
-                console.log(result.text);
+                dispatch(sendMail())
+                e.target.reset()
             }, (error) => {
                 console.log(error.text);
             });
     };
 
-    console.log(products)
     return (
         <Tab.Container id="left-tabs-example" defaultActiveKey="1">
             <Row>
@@ -239,7 +253,7 @@ const LocationInfor = (props) => {
                                             <input type="submit" value="Send" />
                                         </form>
 
-                                        
+
                                         <div class="status"></div>
                                     </div>
 
@@ -264,7 +278,7 @@ const LocationInfor = (props) => {
                             </section>
                         </Tab.Pane>
                         <Tab.Pane eventKey="6">
-<GoogleApiWrapper/>
+                            <GoogleApiWrapper />
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

@@ -181,6 +181,8 @@ const Profile = () => {
   };
 
   if (!auth.user) return null;
+
+  console.log(orders, 'orders')
   return (
     <div className="profile_page">
       <Head>
@@ -277,26 +279,39 @@ const Profile = () => {
                 >
                   <thead className="bg-light font-weight-bold">
                     <tr>
+                      <td className="p-2">stt</td>
                       <td className="p-2">id</td>
+                      <td className="p-2">name</td>
                       <td className="p-2">date</td>
                       <td className="p-2">total</td>
+                      <td className="p-2">address</td>
                       <td className="p-2">delivered</td>
                       <td className="p-2">paid</td>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {orders.map((order) => (
+                    {orders.map((order, idx) => (
                       <tr key={order._id}>
+                        <td className="p-2">
+                            <a>{idx}</a>
+                        </td>
                         <td className="p-2">
                           <Link href={`/order/${order._id}`}>
                             <a>{order._id}</a>
                           </Link>
                         </td>
+
+                        {/* Display for case admin */}
+                        <td className="p-2">
+                           {order?.user?.name}
+                        </td>
+
                         <td className="p-2">
                           {new Date(order.createdAt).toLocaleDateString()}
                         </td>
                         <td className="p-2">${order.total}</td>
+                        <td className="p-2">{order.address}</td>
                         <td className="p-2">
                           {order.delivered ? (
                             <i className="fas fa-check text-success"></i>

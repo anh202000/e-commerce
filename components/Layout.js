@@ -21,8 +21,11 @@ function Layout({ children }) {
             <div className="container">
                 <Notify />
                 <Modal />
-                <div onClick={() => newPopup('https://nextjsblogs.herokuapp.com/')} style={{ position: 'fixed', bottom: '2%', right: '2%', zIndex: 999 }}>
+                <div onClick={() => newPopup('https://nextjsblogs.herokuapp.com/')} style={{ position: 'fixed', bottom: '4%', right: '2%', zIndex: 999 }}>
                     <Mess />
+                </div>
+                <div class="online-indicator" style={{ position: 'fixed', bottom: '4%', right: '2%' }}>
+                    <span class="blink"></span>
                 </div>
                 {children}
             </div>

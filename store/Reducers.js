@@ -38,6 +38,11 @@ const reducers = (state, action) => {
                 ...state,
                 categories: action.payload
             };
+            case ACTIONS.ADD_MAIL:
+                return {
+                    ...state,
+                    mails: action.payload
+                };
         default:
             return state;
     }
