@@ -8,6 +8,7 @@ import Cart from '../public/cart'
 import Location from '../public/location'
 import Store from '../public/store'
 import Mail from '../public/mail'
+import Chart from '../public/chart'
 
 function NavBar() {
     const router = useRouter()
@@ -153,6 +154,16 @@ function NavBar() {
                             <Link href="/mail">
                                 <a className={"nav-link position-relative" + isActive('/mail')}>
                                     <Mail />
+                                </a>
+                            </Link>
+                        </li>
+                    }
+
+                    {auth?.user?.role === 'admin' &&
+                        <li className="nav-item li-mr">
+                            <Link href="/dashboard">
+                                <a className={"nav-link position-relative" + isActive('/dashboard')}>
+                                    <Chart />
                                 </a>
                             </Link>
                         </li>
