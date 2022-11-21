@@ -12,6 +12,7 @@ module.exports = {
       "PAYPAL_CLIENT_ID": "AZgW-2jXV8aBtFQ1Jg_NcEZ4AXC04auAcpNE9ehP0ZClJzvnE5_zHKn8bMQEP5i3f8LVLIaEVXOBPhLR",
       "CLOUD_UPDATE_PRESET": "cloudfilesAnhLPT",
       "CLOUD_NAME": "anhlptstore",
-      "CLOUD_API": "https://api.cloudinary.com/v1_1/anhlptstore/image/upload/"
+      "CLOUD_API": "https://api.cloudinary.com/v1_1/anhlptstore/image/upload/",
+      "CI": false
   }
 }
